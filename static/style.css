@@ -60,16 +60,14 @@ html, body {
     gap: 8px;
 }
 
-.form-row {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 250px;
+.bbt-layout-table {
+    border-collapse: separate;
+    border-spacing: 10px 5px;
 }
 
-.form-row label {
+.bbt-layout-table .label {
     font-size: 13px;
-    margin-right: 5px;
+    text-align: right;
     color: #000;
 }
 

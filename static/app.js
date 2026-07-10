@@ -1,3 +1,5 @@
+let currentDuration = 0; // In seconds
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('encodeForm');
     const startBtn = document.getElementById('startBtn');
@@ -51,7 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     let currentEventSource = null;
-    let currentDuration = 0; // In seconds
 
     form.addEventListener('submit', (e) => {
         e.preventDefault();

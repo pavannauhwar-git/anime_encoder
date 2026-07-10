@@ -17,44 +17,48 @@
 
     <div class="form-container">
         <form id="encodeForm" class="bbt-form">
-            <div class="form-row">
-                <label for="encoder">e:</label>
-                <select id="encoder" name="encoder" class="bbt-input">
-                    <option value="hardware">HEVC VideoToolbox</option>
-                    <option value="software_hevc">HEVC libx265</option>
-                    <option value="software_av1">SVT-AV1</option>
-                </select>
-            </div>
-            
-            <div class="form-row">
-                <label for="inputPath">in:</label>
-                <div class="input-with-btn">
-                    <input type="text" id="inputPath" name="inputPath" class="bbt-input" required>
-                    <button type="button" class="btn-tiny" onclick="browsePath('inputPath', 'file')">...</button>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <label for="outputPath">out:</label>
-                <div class="input-with-btn">
-                    <input type="text" id="outputPath" name="outputPath" class="bbt-input">
-                    <button type="button" class="btn-tiny" onclick="browsePath('outputPath', 'folder')">...</button>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <label for="audioIdx">a:</label>
-                <select id="audioIdx" name="audioIdx" class="bbt-input">
-                    <option value="">All Tracks</option>
-                </select>
-            </div>
-
-            <div class="form-row">
-                <label for="subIdx">s:</label>
-                <select id="subIdx" name="subIdx" class="bbt-input">
-                    <option value="">All Tracks</option>
-                </select>
-            </div>
+            <table class="bbt-layout-table">
+                <tr>
+                    <td class="label"><label for="inputPath">in:</label></td>
+                    <td>
+                        <div class="input-with-btn">
+                            <input type="text" id="inputPath" name="inputPath" class="bbt-input" required>
+                            <button type="button" class="btn-tiny" onclick="browsePath('inputPath', 'file')">...</button>
+                        </div>
+                    </td>
+                    <td class="label"><label for="outputPath">out:</label></td>
+                    <td>
+                        <div class="input-with-btn">
+                            <input type="text" id="outputPath" name="outputPath" class="bbt-input">
+                            <button type="button" class="btn-tiny" onclick="browsePath('outputPath', 'folder')">...</button>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="encoder">e:</label></td>
+                    <td>
+                        <select id="encoder" name="encoder" class="bbt-input">
+                            <option value="hardware">HEVC VideoToolbox</option>
+                            <option value="software_hevc">HEVC libx265</option>
+                            <option value="software_av1">SVT-AV1</option>
+                        </select>
+                    </td>
+                    <td class="label"><label for="audioIdx">a:</label></td>
+                    <td>
+                        <select id="audioIdx" name="audioIdx" class="bbt-input">
+                            <option value="">All Tracks</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="label"><label for="subIdx">s:</label></td>
+                    <td colspan="3">
+                        <select id="subIdx" name="subIdx" class="bbt-input" style="width: 100%;">
+                            <option value="">All Tracks</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>
 
             <div class="button-row">
                 <button type="submit" id="startBtn" class="bbt-btn">Encode now</button>

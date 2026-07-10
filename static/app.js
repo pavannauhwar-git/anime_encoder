@@ -106,6 +106,19 @@ document.addEventListener('DOMContentLoaded', () => {
             // Auto scroll to bottom
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
             
+            // Parse duration dynamically from ffmpeg logs (handles batch encodes perfectly)
+            if (data.includes('Duration: ')) {
+                const durMatch = data.match(/Duration:\s*(\d+):(\d+):(\d+\.\d+)/);
+                if (durMatch) {
+                    const h = parseInt(durMatch[1]);
+                    const m = parseInt(durMatch[2]);
+                    const s = parseFloat(durMatch[3]);
+                    currentDuration = (h * 3600) + (m * 60) + s;
+                    progressBar.style.width = '0%';
+                    progressText.textContent = '0%';
+                }
+            }
+
             // Parse progress: time=00:15:32.45
             if (currentDuration > 0 && data.includes('time=')) {
                 const match = data.match(/time=\s*(\d+):(\d+):(\d+\.\d+)/);
@@ -230,8 +243,18 @@ async function detectTracks(path) {
         
     } catch (err) {
         console.error(err);
-        audioSelect.innerHTML = '<option value="">Keep All Audio Tracks</option>';
-        subSelect.innerHTML = '<option value="">Keep All Subtitle Tracks</option>';
+        populateGenericTracks(audioSelect, 'Audio');
+        populateGenericTracks(subSelect, 'Subtitle');
         currentDuration = 0;
+    }
+}
+
+function populateGenericTracks(selectElement, type) {
+    selectElement.innerHTML = '<option value="">Keep All ' + type + ' Tracks</option>';
+    for(let i=0; i<=5; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `Force Track ${i}`;
+        selectElement.appendChild(opt);
     }
 }

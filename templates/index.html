@@ -73,10 +73,21 @@
 
     <div class="terminal-container" id="terminalContainer" style="display: none;">
         <div class="progress-bar-container" id="progressContainer" style="display: none;">
-            <div class="progress-bar-fill" id="progressBar"></div>
-            <span class="progress-text" id="progressText">0%</span>
+            <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 2px;">
+                <span class="batch-progress" id="batchProgressText"></span>
+                <span class="progress-text" id="progressText">0%</span>
+            </div>
+            <div style="width: 100%; border: 1px solid var(--border-color); height: 10px;">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
         <div class="terminal-window" id="terminalOutput"></div>
+        
+        <div id="completionBox" style="display: none; text-align: center; padding: 20px; border: 1px solid var(--border-color); background: var(--bg-box); margin-top: 10px;">
+            <h3 style="color: #27ae60; margin: 0 0 10px 0;">Encoding Complete</h3>
+            <p id="completionMessage" style="margin: 0 0 15px 0;">All files have been encoded successfully.</p>
+            <button type="button" id="openFolderBtn" class="bbt-btn" style="width: auto; padding: 5px 15px;">Open Output Folder</button>
+        </div>
     </div>
 
     <div class="dango-container">

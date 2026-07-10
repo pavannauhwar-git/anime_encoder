@@ -8,12 +8,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopBtn = document.getElementById('stopBtn');
     
     const terminalOutput = document.getElementById('terminalOutput');
+    const terminalContainer = document.getElementById('terminalContainer');
     
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
     const progressText = document.getElementById('progressText');
+    const batchProgressText = document.getElementById('batchProgressText');
     
-    // Setup drag and drop for input path
+    const completionBox = document.getElementById('completionBox');
+    const completionMessage = document.getElementById('completionMessage');
+    const openFolderBtn = document.getElementById('openFolderBtn');
+    
     const inputPathField = document.getElementById('inputPath');
     const inputWrapper = inputPathField.parentElement;
 
@@ -67,8 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
         progressBar.style.width = '0%';
         progressText.textContent = '0%';
         
-        // Clear terminal
         terminalOutput.innerHTML = '';
+        batchProgressText.textContent = '';
+        completionBox.style.display = 'none';
+        terminalContainer.style.display = 'block';
 
         // Gather form data
         const formData = new FormData(form);
@@ -136,8 +143,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
+            // Parse batch progress
+            if (data.includes('Processing file')) {
+                const batchMatch = data.match(/Processing file (\d+)\/(\d+)/);
+                if (batchMatch) {
+                    batchProgressText.textContent = `[File ${batchMatch[1]} of ${batchMatch[2]}]`;
+                }
+            }
+
+            // Stream Finished
             if (data.includes('Encode complete!') || data.includes('Process exited with code') || data.includes('Process was terminated')) {
-                finishStream();
+                const success = !data.includes('Process exited with code') && !data.includes('Process was terminated');
+                showCompletionScreen(success);
             }
         };
 
@@ -151,6 +168,22 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     });
 
+    function showCompletionScreen(success) {
+        finishStream();
+        
+        terminalOutput.style.display = 'none';
+        progressContainer.style.display = 'none';
+        completionBox.style.display = 'block';
+        
+        if (success) {
+            completionMessage.textContent = 'All files have been encoded successfully.';
+            completionMessage.style.color = '#2C3E50';
+        } else {
+            completionMessage.textContent = 'Encode failed or was stopped early. Check logs for details.';
+            completionMessage.style.color = '#E74C3C';
+        }
+    }
+
     function finishStream() {
         if (currentEventSource) {
             currentEventSource.close();
@@ -161,11 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
         pauseBtn.style.display = 'none';
         resumeBtn.style.display = 'none';
         stopBtn.style.display = 'none';
-        
-        if (progressText.textContent !== '100.0%') {
-            progressContainer.style.display = 'none';
-        }
     }
+
+    openFolderBtn.addEventListener('click', async () => {
+        const formData = new FormData(form);
+        await fetch('/open_folder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                input_path: formData.get('inputPath'),
+                output_path: formData.get('outputPath')
+            })
+        });
+    });
 
     pauseBtn.addEventListener('click', async () => {
         await fetch('/pause', { method: 'POST' });

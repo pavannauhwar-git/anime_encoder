@@ -39,9 +39,39 @@ def index():
 def stop_process():
     global active_process
     if active_process and active_process.poll() is None:
-        active_process.terminate()
+        os.kill(active_process.pid, signal.SIGTERM)
+        active_process = None
         return jsonify({"status": "stopped"})
-    return jsonify({"status": "no active process"}), 400
+    return jsonify({"status": "no process running"})
+
+@app.route('/open_folder', methods=['POST'])
+def open_folder():
+    data = request.json
+    input_path = data.get('input_path')
+    output_path = data.get('output_path')
+    
+    if output_path and os.path.exists(output_path):
+        target_dir = output_path
+    elif input_path and os.path.exists(input_path):
+        input_p = Path(input_path)
+        if input_p.is_file():
+            target_dir = str(input_p.parent / "encoded")
+        else:
+            target_dir = str(input_p / "encoded")
+    else:
+        return jsonify({"error": "path not found"}), 404
+
+    if os.path.exists(target_dir):
+        subprocess.run(['open', target_dir])
+        return jsonify({"status": "opened"})
+    else:
+        # Fallback to parent directory if encoded hasn't been created yet
+        fallback = str(Path(input_path).parent if Path(input_path).is_file() else Path(input_path))
+        if os.path.exists(fallback):
+            subprocess.run(['open', fallback])
+            return jsonify({"status": "opened fallback"})
+            
+    return jsonify({"error": "target directory not found"}), 404
 
 @app.route('/pause', methods=['POST'])
 def pause_process():

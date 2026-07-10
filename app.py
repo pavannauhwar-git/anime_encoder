@@ -201,6 +201,19 @@ def stream():
     return Response(generate(), mimetype='text/event-stream')
 
 if __name__ == '__main__':
-    window = webview.create_window('Media Encoding Suite', app, js_api=api, width=1200, height=850, min_size=(900, 600))
+    import threading
+    import time
+    
+    def start_server():
+        app.run(host='127.0.0.1', port=5050, threaded=True, use_reloader=False)
+
+    t = threading.Thread(target=start_server)
+    t.daemon = True
+    t.start()
+    
+    # Wait a tiny bit for the server to bind
+    time.sleep(0.5)
+
+    window = webview.create_window('Media Encoding Suite', 'http://127.0.0.1:5050', js_api=api, width=1200, height=850, min_size=(900, 600))
     api.window = window
     webview.start()

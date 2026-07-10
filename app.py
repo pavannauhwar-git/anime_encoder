@@ -5,6 +5,7 @@ import os
 import json
 import signal
 import webview
+from pathlib import Path
 
 # Fix PATH for AppleScript .app bundles which strip /usr/local/bin and /opt/homebrew/bin
 os.environ["PATH"] += os.pathsep + "/usr/local/bin" + os.pathsep + "/opt/homebrew/bin"

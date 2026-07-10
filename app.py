@@ -6,6 +6,9 @@ import json
 import signal
 import webview
 
+# Fix PATH for AppleScript .app bundles which strip /usr/local/bin and /opt/homebrew/bin
+os.environ["PATH"] += os.pathsep + "/usr/local/bin" + os.pathsep + "/opt/homebrew/bin"
+
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 active_process = None

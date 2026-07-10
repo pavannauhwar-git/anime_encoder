@@ -185,21 +185,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Native Browse Dialog Integration
 async function browsePath(targetId, type) {
-    try {
-        const response = await fetch(`/browse?type=${type}`);
-        if (!response.ok) {
-            console.log('User cancelled or error occurred');
-            return;
-        }
-        const data = await response.json();
-        if (data.path) {
-            document.getElementById(targetId).value = data.path;
-            if (targetId === 'inputPath') {
-                detectTracks(data.path);
+    if (window.pywebview && window.pywebview.api) {
+        try {
+            const path = await window.pywebview.api.browse(type);
+            if (path) {
+                document.getElementById(targetId).value = path;
+                if (targetId === 'inputPath') {
+                    detectTracks(path);
+                }
             }
+        } catch (err) {
+            console.error('Browse error:', err);
         }
-    } catch (err) {
-        console.error('Browse error:', err);
+    } else {
+        alert("pywebview is not initialized yet.");
     }
 }
 

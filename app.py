@@ -4,10 +4,29 @@ from flask import Flask, render_template, request, Response, jsonify
 import os
 import json
 import signal
+import webview
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 
 active_process = None
+
+class Api:
+    def __init__(self):
+        self.window = None
+
+    def browse(self, browse_type):
+        if not self.window:
+            return None
+        if browse_type == 'folder':
+            result = self.window.create_file_dialog(webview.FOLDER_DIALOG)
+        else:
+            result = self.window.create_file_dialog(webview.OPEN_DIALOG)
+        
+        if result and len(result) > 0:
+            return result[0]
+        return None
+
+api = Api()
 
 @app.route('/')
 def index():
@@ -36,26 +55,6 @@ def resume_process():
         active_process.send_signal(signal.SIGCONT)
         return jsonify({"status": "resumed"})
     return jsonify({"status": "no active process"}), 400
-
-@app.route('/browse')
-def browse():
-    browse_type = request.args.get('type', 'file')
-    try:
-        if browse_type == 'folder':
-            cmd = ['osascript', '-e', 'POSIX path of (choose folder with prompt "Select Folder")']
-        else:
-            # allow multiple types if needed, but basic choose file is fine
-            cmd = ['osascript', '-e', 'POSIX path of (choose file with prompt "Select Video File")']
-            
-        # Run osascript
-        result = subprocess.run(cmd, capture_output=True, text=True)
-        if result.returncode == 0:
-            path = result.stdout.strip()
-            return jsonify({"path": path})
-        else:
-            return jsonify({"error": "User cancelled or error"}), 400
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
 
 @app.route('/tracks')
 def tracks():
@@ -199,6 +198,6 @@ def stream():
     return Response(generate(), mimetype='text/event-stream')
 
 if __name__ == '__main__':
-    # Run locally on port 5050
-    print("🚀 Archiver Dashboard starting on http://127.0.0.1:5050")
-    app.run(debug=True, port=5050, use_reloader=False)
+    window = webview.create_window('Media Encoding Suite', app, js_api=api, width=1200, height=850, min_size=(900, 600))
+    api.window = window
+    webview.start()

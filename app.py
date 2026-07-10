@@ -224,6 +224,6 @@ if __name__ == '__main__':
     # Wait a tiny bit for the server to bind
     time.sleep(0.5)
 
-    window = webview.create_window('Media Encoding Suite', 'http://127.0.0.1:5050', js_api=api, width=1200, height=850, min_size=(900, 600))
+    window = webview.create_window('Media Encoding Suite', 'http://127.0.0.1:5050', js_api=api, width=700, height=800, min_size=(600, 600))
     api.window = window
     webview.start()

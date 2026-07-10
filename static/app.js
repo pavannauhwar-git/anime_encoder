@@ -9,10 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const terminalOutput = document.getElementById('terminalOutput');
     const terminalContainer = document.getElementById('terminalContainer');
-    
-    const progressContainer = document.getElementById('progressContainer');
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
     const batchProgressText = document.getElementById('batchProgressText');
     
     const completionBox = document.getElementById('completionBox');
@@ -67,11 +63,6 @@ document.addEventListener('DOMContentLoaded', () => {
         stopBtn.style.display = 'flex';
         resumeBtn.style.display = 'none';
         
-        // Reset Progress Bar
-        progressContainer.style.display = currentDuration > 0 ? 'block' : 'none';
-        progressBar.style.width = '0%';
-        progressText.textContent = '0%';
-        
         terminalOutput.innerHTML = '';
         batchProgressText.textContent = '';
         completionBox.style.display = 'none';
@@ -112,36 +103,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Auto scroll to bottom
             terminalOutput.scrollTop = terminalOutput.scrollHeight;
-            
-            // Parse duration dynamically from ffmpeg logs (handles batch encodes perfectly)
-            if (data.includes('Duration: ')) {
-                const durMatch = data.match(/Duration:\s*(\d+):(\d+):(\d+\.\d+)/);
-                if (durMatch) {
-                    const h = parseInt(durMatch[1]);
-                    const m = parseInt(durMatch[2]);
-                    const s = parseFloat(durMatch[3]);
-                    currentDuration = (h * 3600) + (m * 60) + s;
-                    progressBar.style.width = '0%';
-                    progressText.textContent = '0%';
-                }
-            }
-
-            // Parse progress: time=00:15:32.45
-            if (currentDuration > 0 && data.includes('time=')) {
-                const match = data.match(/time=\s*(\d+):(\d+):(\d+\.\d+)/);
-                if (match) {
-                    const h = parseInt(match[1]);
-                    const m = parseInt(match[2]);
-                    const s = parseFloat(match[3]);
-                    const timeInSeconds = (h * 3600) + (m * 60) + s;
-                    
-                    let percent = (timeInSeconds / currentDuration) * 100;
-                    if (percent > 100) percent = 100;
-                    
-                    progressBar.style.width = percent.toFixed(1) + '%';
-                    progressText.textContent = percent.toFixed(1) + '%';
-                }
-            }
 
             // Parse batch progress
             if (data.includes('Processing file')) {
@@ -172,7 +133,6 @@ document.addEventListener('DOMContentLoaded', () => {
         finishStream();
         
         terminalOutput.style.display = 'none';
-        progressContainer.style.display = 'none';
         completionBox.style.display = 'block';
         
         if (success) {

@@ -76,19 +76,25 @@
 
                     <!-- Tracks -->
                     <div class="input-group track-group">
-                        <div class="input-field">
+                        <div class="input-field select-field">
                             <label for="audioIdx">Audio Track Index (Optional)</label>
-                            <div class="text-input-wrapper">
+                            <div class="select-wrapper">
                                 <span class="material-symbols-rounded field-icon">audio_file</span>
-                                <input type="number" id="audioIdx" name="audioIdx" placeholder="e.g. 1" min="0">
+                                <select id="audioIdx" name="audioIdx">
+                                    <option value="">Keep All Audio Tracks</option>
+                                </select>
+                                <span class="material-symbols-rounded dropdown-icon">arrow_drop_down</span>
                             </div>
                         </div>
 
-                        <div class="input-field">
+                        <div class="input-field select-field">
                             <label for="subIdx">Subtitle Track Index (Optional)</label>
-                            <div class="text-input-wrapper">
+                            <div class="select-wrapper">
                                 <span class="material-symbols-rounded field-icon">subtitles</span>
-                                <input type="number" id="subIdx" name="subIdx" placeholder="e.g. 2" min="0">
+                                <select id="subIdx" name="subIdx">
+                                    <option value="">Keep All Subtitle Tracks</option>
+                                </select>
+                                <span class="material-symbols-rounded dropdown-icon">arrow_drop_down</span>
                             </div>
                         </div>
                     </div>
@@ -98,6 +104,18 @@
                         <button type="submit" id="startBtn" class="md-fab-primary">
                             <span class="material-symbols-rounded">play_arrow</span>
                             Start Encode
+                        </button>
+                        <button type="button" id="pauseBtn" class="md-fab-warning" style="display:none;">
+                            <span class="material-symbols-rounded">pause</span>
+                            Pause
+                        </button>
+                        <button type="button" id="resumeBtn" class="md-fab-success" style="display:none;">
+                            <span class="material-symbols-rounded">play_circle</span>
+                            Resume
+                        </button>
+                        <button type="button" id="stopBtn" class="md-fab-error" style="display:none;">
+                            <span class="material-symbols-rounded">stop</span>
+                            Stop Encode
                         </button>
                     </div>
 
@@ -110,6 +128,10 @@
                     <span class="material-symbols-rounded">terminal</span>
                     <h2>Execution Log</h2>
                     <div class="status-indicator" id="statusIndicator">Ready</div>
+                </div>
+                <div class="progress-bar-container" style="display: none;" id="progressContainer">
+                    <div class="progress-bar-fill" id="progressBar"></div>
+                    <span class="progress-text" id="progressText">0%</span>
                 </div>
                 <div class="terminal-window" id="terminalOutput">
                     <div class="log-line welcome-log">Waiting for job to start...</div>

@@ -19,6 +19,12 @@
     --md-sys-color-error-container: #F9DEDC;
     --md-sys-color-on-error-container: #410E0B;
     
+    --md-sys-color-warning: #D97706;
+    --md-sys-color-on-warning: #FFFFFF;
+    
+    --md-sys-color-success: #16A34A;
+    --md-sys-color-on-success: #FFFFFF;
+    
     --md-sys-color-outline: #79747E;
     --md-sys-color-outline-variant: #CAC4D0;
 
@@ -266,6 +272,54 @@ input::placeholder {
     transform: scale(0.98);
 }
 
+.md-fab-warning {
+    background-color: var(--md-sys-color-warning);
+    color: var(--md-sys-color-on-warning);
+    border: none;
+    border-radius: var(--md-sys-shape-corner-full);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.md-fab-success {
+    background-color: var(--md-sys-color-success);
+    color: var(--md-sys-color-on-success);
+    border: none;
+    border-radius: var(--md-sys-shape-corner-full);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+.md-fab-error {
+    background-color: var(--md-sys-color-error);
+    color: var(--md-sys-color-on-error);
+    border: none;
+    border-radius: var(--md-sys-shape-corner-full);
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
 /* Terminal */
 .terminal-card {
     background-color: #1E1E1E; /* Keep terminal dark for contrast */
@@ -308,6 +362,31 @@ input::placeholder {
     0% { opacity: 1; }
     50% { opacity: 0.7; }
     100% { opacity: 1; }
+}
+
+.progress-bar-container {
+    width: 100%;
+    height: 20px;
+    background-color: #333333;
+    position: relative;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background-color: #16A34A; /* Success color */
+    transition: width 0.5s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #FFFFFF;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 .terminal-window {

@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const stopBtn = document.getElementById('stopBtn');
     
     const terminalOutput = document.getElementById('terminalOutput');
-    const statusIndicator = document.getElementById('statusIndicator');
     
     const progressContainer = document.getElementById('progressContainer');
     const progressBar = document.getElementById('progressBar');
@@ -70,10 +69,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Clear terminal
         terminalOutput.innerHTML = '';
-        
-        // Update status
-        statusIndicator.textContent = 'Running';
-        statusIndicator.classList.add('running');
 
         // Gather form data
         const formData = new FormData(form);
@@ -154,9 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         resumeBtn.style.display = 'none';
         stopBtn.style.display = 'none';
         
-        statusIndicator.textContent = 'Ready';
-        statusIndicator.classList.remove('running');
-        
         if (progressText.textContent !== '100.0%') {
             progressContainer.style.display = 'none';
         }
@@ -166,16 +158,12 @@ document.addEventListener('DOMContentLoaded', () => {
         await fetch('/pause', { method: 'POST' });
         pauseBtn.style.display = 'none';
         resumeBtn.style.display = 'flex';
-        statusIndicator.textContent = 'Paused';
-        statusIndicator.classList.remove('running');
     });
 
     resumeBtn.addEventListener('click', async () => {
         await fetch('/resume', { method: 'POST' });
         resumeBtn.style.display = 'none';
         pauseBtn.style.display = 'flex';
-        statusIndicator.textContent = 'Running';
-        statusIndicator.classList.add('running');
     });
 
     stopBtn.addEventListener('click', async () => {

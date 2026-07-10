@@ -24,6 +24,7 @@ def encode_video(input_path: Path, output_path: Path, audio_idx: int = None, sub
     # ffmpeg command with maximum quality settings for Apple Silicon hardware
     cmd = [
         "ffmpeg",
+        "-nostdin",
         "-i", str(input_path)
     ]
     

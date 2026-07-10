@@ -19,6 +19,7 @@ def encode_video(input_path, output_dir, audio_idx=None, sub_idx=None):
     # ffmpeg command with maximum AV1 Holy Grail parameters
     cmd = [
         "ffmpeg",
+        "-nostdin",
         "-i", str(input_path)
     ]
     

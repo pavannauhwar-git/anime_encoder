@@ -153,7 +153,7 @@ def stream():
 
     def generate():
         global active_process
-        cmd = [sys.executable, script_path, input_path]
+        cmd = [sys.executable, "-u", script_path, input_path]
         if output_path:
             cmd.extend(['-o', output_path])
         if audio_idx:
@@ -174,12 +174,19 @@ def stream():
             )
             active_process = process
 
-            for line in iter(process.stdout.readline, ''):
-                if line:
-                    # Replace newlines with HTML compatible breaks if necessary, but SSE handles \n fine.
-                    # We strip to avoid double newlines in the SSE stream
-                    yield f"data: {line.strip()}\n\n"
-                
+            buffer = ""
+            while True:
+                char = process.stdout.read(1)
+                if not char and process.poll() is not None:
+                    break
+                if char:
+                    if char in ('\r', '\n'):
+                        line = buffer.strip()
+                        if line:
+                            yield f"data: {line}\n\n"
+                        buffer = ""
+                    else:
+                        buffer += char
             process.stdout.close()
             return_code = process.wait()
             
@@ -198,7 +205,10 @@ def stream():
         finally:
             active_process = None
 
-    return Response(generate(), mimetype='text/event-stream')
+    response = Response(generate(), mimetype='text/event-stream')
+    response.headers['Cache-Control'] = 'no-cache'
+    response.headers['X-Accel-Buffering'] = 'no'
+    return response
 
 if __name__ == '__main__':
     import threading

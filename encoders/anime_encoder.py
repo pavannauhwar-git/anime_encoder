@@ -21,9 +21,9 @@ def encode_video(input_path: Path, output_path: Path, audio_idx=None, sub_idx=No
     print(f"Output will be saved to: {output_path}")
     print(f"[{'='*50}]\n")
 
-    # ffmpeg command with optimal settings for anime
     cmd = [
         "ffmpeg",
+        "-nostdin",
         "-i", str(input_path)
     ]
 

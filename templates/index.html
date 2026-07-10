@@ -3,128 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Encoding Suite</title>
-    <!-- Local CSS -->
+    <title>Anime Encoding Suite</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="tracker-container">
-        
-        <!-- Header -->
-        <header class="tracker-header">
-            <div class="logo-area">
-                <!-- Custom Minimalist Anime Cat/Mascot SVG -->
-                <svg class="tracker-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 20 80 L 20 40 L 10 20 L 35 35 C 45 30, 55 30, 65 35 L 90 20 L 80 40 L 80 80 Z" fill="none" stroke="#2B4A7A" stroke-width="6" stroke-linejoin="round"/>
-                    <circle cx="35" cy="55" r="4" fill="#2B4A7A"/>
-                    <circle cx="65" cy="55" r="4" fill="#2B4A7A"/>
-                    <path d="M 45 65 L 50 70 L 55 65" fill="none" stroke="#2B4A7A" stroke-width="4" stroke-linecap="round"/>
-                </svg>
-                <div class="title-text">
-                    <h1>Media Encoding Suite</h1>
-                    <span class="subtitle">Archival Engine v1.0.3</span>
-                </div>
-            </div>
-            <div class="nav-links">
-                <a href="#">Home</a> | <a href="#">Stats</a> | <a href="#">Wiki</a> | <a href="#">Forums</a>
-            </div>
-        </header>
-
-        <main class="main-content">
-            
-            <!-- Controls Box -->
-            <section class="content-box">
-                <div class="box-header">
-                    <h2>Job Configuration</h2>
-                </div>
-                <div class="box-body">
-                    <form id="encodeForm" class="tabular-form">
-                        
-                        <table class="form-table">
-                            <tbody>
-                                <tr>
-                                    <td class="label-cell"><label for="encoder">Encoding Engine:</label></td>
-                                    <td class="input-cell">
-                                        <select id="encoder" name="encoder" class="tracker-select">
-                                            <option value="hardware">Hardware Acceleration (HEVC VideoToolbox)</option>
-                                            <option value="software_hevc">Software Encoding (HEVC libx265)</option>
-                                            <option value="software_av1">Next-Generation Compression (SVT-AV1)</option>
-                                        </select>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="label-cell"><label for="inputPath">Target Path:</label></td>
-                                    <td class="input-cell flex-cell">
-                                        <input type="text" id="inputPath" name="inputPath" class="tracker-input" placeholder="Select a file or folder..." required>
-                                        <button type="button" class="btn btn-small" onclick="browsePath('inputPath', 'file')">File...</button>
-                                        <button type="button" class="btn btn-small" onclick="browsePath('inputPath', 'folder')">Folder...</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="label-cell"><label for="outputPath">Output Path:</label></td>
-                                    <td class="input-cell flex-cell">
-                                        <input type="text" id="outputPath" name="outputPath" class="tracker-input" placeholder="(Optional) Default directory">
-                                        <button type="button" class="btn btn-small" onclick="browsePath('outputPath', 'folder')">Dir...</button>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="label-cell"><label for="audioIdx">Audio Track:</label></td>
-                                    <td class="input-cell">
-                                        <select id="audioIdx" name="audioIdx" class="tracker-select">
-                                            <option value="">Keep All Audio Tracks</option>
-                                        </select>
-                                    </td>
-                                </tr>
-
-                                <tr>
-                                    <td class="label-cell"><label for="subIdx">Subtitle Track:</label></td>
-                                    <td class="input-cell">
-                                        <select id="subIdx" name="subIdx" class="tracker-select">
-                                            <option value="">Keep All Subtitle Tracks</option>
-                                        </select>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-
-                        <div class="actions-row">
-                            <button type="submit" id="startBtn" class="btn btn-primary">Start Encode</button>
-                            <button type="button" id="pauseBtn" class="btn btn-warning" style="display:none;">Pause</button>
-                            <button type="button" id="resumeBtn" class="btn btn-success" style="display:none;">Resume</button>
-                            <button type="button" id="stopBtn" class="btn btn-danger" style="display:none;">Stop</button>
-                        </div>
-                    </form>
-                </div>
-            </section>
-
-            <!-- Terminal Box -->
-            <section class="content-box">
-                <div class="box-header flex-header">
-                    <h2>Execution Log</h2>
-                    <span class="status-badge" id="statusIndicator">Idle</span>
-                </div>
-                
-                <div class="progress-bar-container" style="display: none;" id="progressContainer">
-                    <div class="progress-bar-fill" id="progressBar"></div>
-                    <span class="progress-text" id="progressText">0%</span>
-                </div>
-
-                <div class="terminal-window" id="terminalOutput">
-                    <div class="log-line">System ready. Awaiting job...</div>
-                </div>
-            </section>
-
-        </main>
-
-        <footer class="tracker-footer">
-            Media Encoding Suite - Tracker Edition v1.0
-        </footer>
+    <div class="vignette"></div>
+    
+    <div class="quote-container">
+        <p class="quote-text">“A person's memory is like a book...”</p>
+        <p class="quote-text">We must archive it.</p>
+        <p class="quote-author">-GITS</p>
     </div>
 
-    <!-- Local JS -->
+    <div class="form-container">
+        <form id="encodeForm" class="bbt-form">
+            <div class="form-row">
+                <label for="encoder">e:</label>
+                <select id="encoder" name="encoder" class="bbt-input">
+                    <option value="hardware">HEVC VideoToolbox</option>
+                    <option value="software_hevc">HEVC libx265</option>
+                    <option value="software_av1">SVT-AV1</option>
+                </select>
+            </div>
+            
+            <div class="form-row">
+                <label for="inputPath">in:</label>
+                <div class="input-with-btn">
+                    <input type="text" id="inputPath" name="inputPath" class="bbt-input" required>
+                    <button type="button" class="btn-tiny" onclick="browsePath('inputPath', 'file')">...</button>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="outputPath">out:</label>
+                <div class="input-with-btn">
+                    <input type="text" id="outputPath" name="outputPath" class="bbt-input">
+                    <button type="button" class="btn-tiny" onclick="browsePath('outputPath', 'folder')">...</button>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <label for="audioIdx">a:</label>
+                <select id="audioIdx" name="audioIdx" class="bbt-input">
+                    <option value="">All Tracks</option>
+                </select>
+            </div>
+
+            <div class="form-row">
+                <label for="subIdx">s:</label>
+                <select id="subIdx" name="subIdx" class="bbt-input">
+                    <option value="">All Tracks</option>
+                </select>
+            </div>
+
+            <div class="button-row">
+                <button type="submit" id="startBtn" class="bbt-btn">Encode now</button>
+            </div>
+            <div class="button-row">
+                <button type="button" id="pauseBtn" class="bbt-btn" style="display:none;">Pause</button>
+                <button type="button" id="resumeBtn" class="bbt-btn" style="display:none;">Resume</button>
+                <button type="button" id="stopBtn" class="bbt-btn" style="display:none;">Stop</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="terminal-container" id="terminalContainer" style="display: none;">
+        <div class="progress-bar-container" id="progressContainer" style="display: none;">
+            <div class="progress-bar-fill" id="progressBar"></div>
+            <span class="progress-text" id="progressText">0%</span>
+        </div>
+        <div class="terminal-window" id="terminalOutput"></div>
+    </div>
+
+    <div class="dango-container">
+        <!-- Minimalist Clannad Dango Family SVG -->
+        <svg viewBox="0 0 200 100" width="150" height="75" xmlns="http://www.w3.org/2000/svg">
+            <!-- Pink Dango -->
+            <path d="M 95 80 C 95 40, 25 40, 25 80 Z" fill="#F1C2D1" stroke="#5E4E4E" stroke-width="2"/>
+            <line x1="50" y1="55" x2="50" y2="62" stroke="#5E4E4E" stroke-width="1.5"/>
+            <line x1="70" y1="55" x2="70" y2="62" stroke="#5E4E4E" stroke-width="1.5"/>
+            <!-- Blush -->
+            <path d="M 35 65 L 45 60 M 40 68 L 48 62" stroke="#E08B9B" stroke-width="1" opacity="0.6"/>
+            <path d="M 75 60 L 85 65 M 72 62 L 80 68" stroke="#E08B9B" stroke-width="1" opacity="0.6"/>
+
+            <!-- Blue Dango -->
+            <path d="M 90 80 C 90 40, 160 40, 160 80 Z" fill="#B3CDE0" stroke="#5E4E4E" stroke-width="2"/>
+            <line x1="115" y1="55" x2="115" y2="62" stroke="#5E4E4E" stroke-width="1.5"/>
+            <line x1="135" y1="55" x2="135" y2="62" stroke="#5E4E4E" stroke-width="1.5"/>
+            <!-- Blush -->
+            <path d="M 100 65 L 110 60 M 105 68 L 113 62" stroke="#87A2B6" stroke-width="1" opacity="0.6"/>
+            <path d="M 140 60 L 150 65 M 137 62 L 145 68" stroke="#87A2B6" stroke-width="1" opacity="0.6"/>
+        </svg>
+    </div>
+
     <script src="{{ url_for('static', filename='app.js') }}"></script>
+    <script>
+        // Custom logic to show terminal only when running to keep the gateway minimalist
+        const form = document.getElementById('encodeForm');
+        form.addEventListener('submit', () => {
+            document.getElementById('terminalContainer').style.display = 'block';
+        });
+    </script>
 </body>
 </html>

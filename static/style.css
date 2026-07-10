@@ -1,260 +1,160 @@
-/* BakaBT Classic Tracker Aesthetic */
-:root {
-    --bg-body: #EDF1F5;
-    --bg-box: #FFFFFF;
-    --border-color: #B5C6DA;
-    --text-color: #2C3E50;
-    --text-muted: #7F8C8D;
-    
-    --header-bg: #2C3E50;
-    --header-text: #ECF0F1;
-    
-    --link-color: #2980B9;
-    --link-hover: #E74C3C;
-    
-    --btn-bg: #EAEAEA;
-    --btn-bg-hover: #D6D6D6;
-    --btn-border: #999999;
-    
-    --btn-primary: #3498DB;
-    --btn-primary-hover: #2980B9;
-    --btn-success: #27AE60;
-    --btn-warning: #F39C12;
-    --btn-danger: #C0392B;
-    
-    --font-main: Tahoma, Verdana, Arial, sans-serif;
-}
-
-* {
-    box-sizing: border-box;
+/* Authentic BakaBT Gateway Aesthetic */
+html, body {
     margin: 0;
     padding: 0;
-}
-
-body {
-    background-color: var(--bg-body);
-    color: var(--text-color);
-    font-family: var(--font-main);
-    font-size: 13px;
-    line-height: 1.5;
+    height: 100%;
+    background-color: #F8F8F8;
+    /* Soft noise texture effect using a subtle radial gradient vignette */
+    background-image: radial-gradient(circle at center, transparent 0%, rgba(135, 162, 182, 0.15) 100%);
+    font-family: Arial, Helvetica, sans-serif;
     display: flex;
-    justify-content: center;
-    min-height: 100vh;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
 }
 
-a {
-    color: var(--link-color);
-    text-decoration: none;
-}
-a:hover {
-    color: var(--link-hover);
-    text-decoration: underline;
-}
-
-.tracker-container {
+/* Vignette Box Shadow overlay */
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    max-width: 960px;
-    margin: 20px 0;
-    background-color: var(--bg-body);
+    height: 100%;
+    box-shadow: inset 0 0 150px rgba(100, 149, 237, 0.15);
+    pointer-events: none;
+    z-index: 10;
 }
 
-/* Header */
-.tracker-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--bg-box);
-    border: 1px solid var(--border-color);
-    padding: 15px 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+/* Philosophy Quote */
+.quote-container {
+    margin-top: 15vh;
+    text-align: center;
+    color: #000;
 }
 
-.logo-area {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.tracker-logo {
-    width: 60px;
-    height: 60px;
-}
-
-.title-text h1 {
-    font-size: 20px;
-    font-weight: bold;
-    color: var(--header-bg);
-    margin: 0;
+.quote-text {
+    font-family: "Times New Roman", Times, serif;
+    font-style: italic;
+    font-size: 36px;
+    margin: 5px 0;
     letter-spacing: -0.5px;
 }
 
-.title-text .subtitle {
-    font-size: 11px;
-    color: var(--text-muted);
+.quote-author {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: right;
+    padding-right: 20px;
 }
 
-.nav-links {
-    font-size: 12px;
-    font-weight: bold;
-}
-.nav-links a {
-    margin: 0 5px;
+/* The Minimalist Form */
+.form-container {
+    margin-top: 60px;
+    z-index: 20;
 }
 
-/* Main Content */
-.main-content {
+.bbt-form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-}
-
-.content-box {
-    background-color: var(--bg-box);
-    border: 1px solid var(--border-color);
-}
-
-.box-header {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-    padding: 8px 15px;
-    font-size: 13px;
-    font-weight: bold;
-}
-
-.box-header.flex-header {
-    display: flex;
-    justify-content: space-between;
     align-items: center;
+    gap: 8px;
 }
 
-.box-header h2 {
-    font-size: 14px;
-    margin: 0;
+.form-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 250px;
 }
 
-.box-body {
-    padding: 15px;
+.form-row label {
+    font-size: 13px;
+    margin-right: 5px;
+    color: #000;
 }
 
-/* Tables & Forms */
-.form-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 15px;
+.bbt-input {
+    width: 180px;
+    padding: 2px 4px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    border: 1px solid #7F9DB9; /* Classic IE6/Web 1.0 Blue border */
+    background-color: #FFFFFF;
 }
 
-.form-table td {
-    padding: 8px;
-    border-bottom: 1px solid #EEEEEE;
+.bbt-input:focus {
+    outline: 1px solid #0055FF;
 }
 
-.label-cell {
-    width: 25%;
-    font-weight: bold;
-    text-align: right;
-    padding-right: 15px !important;
-    background-color: #F9F9F9;
-    border-right: 1px solid #EEEEEE;
+.input-with-btn {
+    display: flex;
+    width: 180px;
 }
 
-.input-cell {
-    width: 75%;
+.input-with-btn .bbt-input {
+    width: 155px;
+    border-right: none;
 }
 
-.flex-cell {
+.btn-tiny {
+    width: 25px;
+    height: 23px; /* match input height */
+    background-color: #EFEFEF;
+    border: 1px solid #7F9DB9;
+    font-size: 10px;
+    cursor: pointer;
+}
+
+.btn-tiny:active {
+    background-color: #DCDCDC;
+}
+
+.button-row {
+    margin-top: 10px;
     display: flex;
     gap: 5px;
 }
 
-.tracker-input, .tracker-select {
-    width: 100%;
-    padding: 4px 6px;
-    font-family: var(--font-main);
-    font-size: 12px;
-    border: 1px solid #A9A9A9;
-    border-radius: 2px;
-    background-color: #FFFFFF;
-}
-
-.tracker-input:focus, .tracker-select:focus {
-    border-color: var(--link-color);
-    outline: none;
-}
-
-/* Buttons */
-.actions-row {
-    display: flex;
-    justify-content: flex-end;
-    gap: 8px;
-    padding-top: 10px;
-    border-top: 1px solid #EEEEEE;
-}
-
-.btn {
-    font-family: var(--font-main);
-    font-size: 12px;
-    font-weight: bold;
-    padding: 5px 12px;
+.bbt-btn {
+    background-color: #EFEFEF;
+    border: 1px solid #7F9DB9;
+    padding: 2px 10px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    color: #000;
     cursor: pointer;
-    border: 1px solid var(--btn-border);
-    border-radius: 3px;
-    background: linear-gradient(to bottom, #FFFFFF 0%, #E0E0E0 100%);
-    color: #333333;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.8);
 }
 
-.btn:hover {
-    background: linear-gradient(to bottom, #F9F9F9 0%, #D0D0D0 100%);
+.bbt-btn:hover {
+    background-color: #E5E5E5;
 }
 
-.btn:active {
-    background: #D0D0D0;
+.bbt-btn:active {
+    background-color: #DCDCDC;
 }
 
-.btn-small {
-    padding: 3px 8px;
-    font-size: 11px;
-}
-
-/* Colored Buttons */
-.btn-primary { background: var(--btn-primary); color: #FFF; text-shadow: none; border-color: #217DBB; }
-.btn-primary:hover { background: #4AA3DF; }
-
-.btn-success { background: var(--btn-success); color: #FFF; text-shadow: none; border-color: #1E8449; }
-.btn-success:hover { background: #2ECC71; }
-
-.btn-warning { background: var(--btn-warning); color: #FFF; text-shadow: none; border-color: #D68910; }
-.btn-warning:hover { background: #F1C40F; }
-
-.btn-danger { background: var(--btn-danger); color: #FFF; text-shadow: none; border-color: #922B21; }
-.btn-danger:hover { background: #E74C3C; }
-
-/* Status & Progress */
-.status-badge {
-    background-color: #7F8C8D;
-    color: #FFF;
-    padding: 2px 8px;
-    border-radius: 2px;
-    font-size: 11px;
-}
-.status-badge.running {
-    background-color: var(--btn-success);
+/* Terminal & Progress */
+.terminal-container {
+    margin-top: 30px;
+    width: 600px;
+    z-index: 20;
 }
 
 .progress-bar-container {
     width: 100%;
-    height: 18px;
-    background-color: #E0E0E0;
-    border-bottom: 1px solid var(--border-color);
+    height: 12px;
+    border: 1px solid #7F9DB9;
+    background-color: #FFFFFF;
+    margin-bottom: 5px;
     position: relative;
 }
 
 .progress-bar-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(to bottom, #2ECC71 0%, #27AE60 100%);
-    border-right: 1px solid #1E8449;
+    background-color: #B3CDE0; /* Soft blue like the Dango */
     transition: width 0.5s ease;
 }
 
@@ -264,36 +164,23 @@ a:hover {
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 10px;
-    font-weight: bold;
     color: #000;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
 }
 
-/* Terminal */
 .terminal-window {
-    background-color: #111111;
-    color: #00FF00;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 12px;
-    padding: 10px;
-    height: 300px;
+    background-color: #FFFFFF;
+    border: 1px solid #7F9DB9;
+    height: 200px;
     overflow-y: auto;
-    border-top: 1px solid #000;
-}
-
-.log-line {
-    margin-bottom: 2px;
-    word-wrap: break-word;
-}
-.log-system { color: #5DADE2; }
-.log-error { color: #E74C3C; }
-
-/* Footer */
-.tracker-footer {
-    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
     font-size: 11px;
-    color: var(--text-muted);
-    padding: 15px 0;
-    margin-top: 20px;
-    border-top: 1px solid var(--border-color);
+    padding: 5px;
+    color: #333;
+}
+
+/* Dangos */
+.dango-container {
+    margin-top: auto;
+    margin-bottom: 30px;
+    z-index: 20;
 }

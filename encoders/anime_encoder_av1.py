@@ -39,8 +39,8 @@ def encode_video(input_path, output_dir, audio_idx=None, sub_idx=None):
     cmd.extend([
         "-c:v", "libsvtav1",
         "-preset", "4", # Very slow but mathematically perfect Holy Grail compression
-        "-crf", "24", # AV1 sweet spot for transparency (equivalent to HEVC CRF 20)
-        "-svtav1-params", "tune=0:film-grain=8", # Tune for visual quality, apply film grain synthesis
+        "-crf", "22", # Pushed closer to visual transparency for Holy Grail tier
+        "-svtav1-params", "tune=0:enable-qm=1:qm-min=0:qm-max=15:film-grain=12:film-grain-denoise=0:keyint=240:lookahead=120", # Elite anime psycho-visual tuning
         "-pix_fmt", "yuv420p10le", # 10-bit color format to prevent banding
         "-c:a", "libopus",
         "-b:a", "192k",
